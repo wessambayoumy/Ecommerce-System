@@ -1,5 +1,5 @@
 {
-  "name": "ecommerce-system",
+  "name": "Ecommerce-System",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -21,6 +21,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/animations": "^20.3.3",
     "@angular/common": "^20.1.0",
     "@angular/compiler": "^20.1.0",
     "@angular/core": "^20.1.0",
@@ -29,8 +30,20 @@
     "@angular/platform-server": "^20.1.0",
     "@angular/router": "^20.1.0",
     "@angular/ssr": "^20.1.5",
+    "@fortawesome/fontawesome-free": "^7.0.1",
+    "@tailwindcss/postcss": "^4.1.14",
     "express": "^5.1.0",
+    "flowbite": "^3.1.2",
+    "google-fonts": "^1.0.0",
+    "jwt-decode": "^4.0.0",
+    "ngx-cookie-service": "^20.1.0",
+    "ngx-owl-carousel-o": "^20.0.1",
+    "ngx-pagination": "^6.0.3",
+    "ngx-spinner": "^19.0.0",
+    "ngx-toastr": "^19.1.0",
+    "postcss": "^8.5.6",
     "rxjs": "~7.8.0",
+    "tailwindcss": "^4.1.14",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
   },

@@ -1,0 +1,8 @@
+<section
+  class="container mx-auto w-10/12 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 py-50"
+>
+  @for (product of ProductList.slice(0,12); track $index) {
+
+  <app-card [product]="product"></app-card>
+  }
+</section>

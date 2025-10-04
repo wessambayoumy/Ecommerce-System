@@ -1,0 +1,69 @@
+<form
+  [formGroup]="registerForm"
+  (ngSubmit)="regSubmit()"
+  class="container mx-auto w-4/5 mb-6"
+>
+  <h1 class="text-3xl my-8">Register Now:</h1>
+  <!-- @let nameControl = registerForm.get('name'); -->
+
+  <app-input
+    [control]="registerForm.get('name')"
+    [idInput]="'name'"
+    [typeInput]="'text'"
+    [placeholderInput]="'John Doe '"
+    [label]="'Name'"
+  ></app-input>
+
+  <app-input
+    [control]="registerForm.get('email')"
+    [idInput]="'email'"
+    [typeInput]="'email'"
+    [placeholderInput]="'john_doe@gmail.com '"
+    [label]="'Email'"
+  ></app-input>
+
+  <app-input
+    [control]="registerForm.get('password')"
+    [idInput]="'password'"
+    [placeholderInput]="'JohnDoe1234 '"
+    [label]="'password'"
+  ></app-input>
+
+   <app-input
+    [control]="registerForm.get('rePassword')"
+    [idInput]="'rePassword'"
+    [placeholderInput]="'JohnDoe1234 '"
+    [label]="'Confirm Password'"
+  ></app-input>
+
+ <app-input
+    [control]="registerForm.get('phone')"
+    [idInput]="'phone'"
+    [typeInput]="'tel'"
+    [placeholderInput]="'01543583846 '"
+    [label]="'Phone'"
+  ></app-input>
+
+  <div class="flex items-center justify-between">
+    @if (errorMessage) {
+    <div
+      class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50"
+      role="alert"
+    >
+      <span class="sr-only">Danger</span>
+      <div>
+        <p>{{ errorMessage }}</p>
+      </div>
+    </div>
+    }
+    <button
+      [disabled]="registerForm.invalid "
+      type="submit"
+      class="text-white w-full focus:ring-4 btn-main font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center"
+    >
+      Register @if (isLoading) {
+      <span> <i class="fas fa-spinner fa-spin"></i> </span>
+      }
+    </button>
+  </div>
+</form>

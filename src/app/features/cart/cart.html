@@ -1,0 +1,64 @@
+<section class="md:flex p-4 gap-4">
+  <div class="md:w-[70%] bg-gray-200 p-5 rounded-2xl">
+    <div class="flex gap-3 items-center mb-5">
+      <h1 class="text-4xl">Cart</h1>
+      <span class="text-amber-600 text-lg">
+        {{ cartProducts.products.length }} items
+      </span>
+    </div>
+    <div class="space-y-4">
+      @for (prod of cartProducts.products; track prod.product._id) {
+      <div class="bg-white p-4 rounded-2xl flex gap-4">
+        <img
+          [src]="prod.product.imageCover"
+          alt="Product Image"
+          class="w-32 h-32 object-cover rounded-lg"
+        />
+        <div class="flex-1">
+          <h2 class="text-2xl font-semibold">
+            {{ prod.product.title }}
+          </h2>
+          <p class="text-gray-600">Product Description</p>
+          <div class="flex items-center gap-4 mt-2">
+            <span class="text-xl font-bold">
+              {{ prod.price | currency : "EGP" }}</span
+            >
+            <div class="flex items-center border rounded-lg">
+              <button
+                class="px-3 py-1 text-lg"
+                (click)="updateCount(prod.product._id, prod.count - 1)"
+              >
+                -
+              </button>
+              <span class="px-3">{{ prod.count }}</span>
+              <button
+                class="px-3 py-1 text-lg"
+                (click)="updateCount(prod.product._id, prod.count + 1)"
+              >
+                +
+              </button>
+            </div>
+            <button class="text-red-500" (click)="removeItem(prod.product._id)">
+              Remove
+            </button>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+
+  <div class="md:w-[30%] bg-gray-200 p-5 rounded-2xl h-fit">
+    <h2 class="text-4xl">Order Summary</h2>
+    <div class="flex justify-between my-4">
+      <span>price</span
+      ><span>{{ cartProducts.totalCartPrice | currency : "EGP" }}</span>
+    </div>
+    <button
+      class="block btn-main w-full mt-3"
+      [routerLink]="['/checkout', cartProducts._id]"
+    >
+      Proceed to Checkout
+    </button>
+  </div>
+</section>

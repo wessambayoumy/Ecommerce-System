@@ -1,0 +1,25 @@
+<div
+  class="border flex flex-col p-3 border-green-400/50 rounded-md overflow-hidden shadow relative group hover:cursor-pointer hover:scale-105 transition-all duration-200"
+>
+  <div [routerLink]="['/details', product.slug, product._id]">
+    <div class="card-img w-7/12 mx-auto">
+      <img [src]="product.imageCover" class="w-full" [alt]="product.title" />
+    </div>
+
+    <h4 class="text-green-500 text-xs">{{ product.category.name }}</h4>
+    <h3 class="font-medium">{{ product.title.split(" ", 3).join(" ") }}</h3>
+    <div class="flex justify-between items-center">
+      <span>{{ product.price | currency : "EGP" }}</span>
+      <div class="flex items-center">
+        <i class="fas fa-star text-yellow-300"></i>
+        <span class="text-gray-500">{{ product.ratingsAverage }}</span>
+      </div>
+    </div>
+  </div>
+  <button
+    (click)="addToCart(product._id)"
+    class="btn-main w-full opacity-0 translate-y-[150%] !transition-all !duration-600 group-hover:opacity-100 group-hover:translate-y-0"
+  >
+    Add to Cart
+  </button>
+</div>

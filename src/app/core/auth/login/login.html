@@ -1,0 +1,49 @@
+<form
+  [formGroup]="loginForm"
+  (ngSubmit)="loginSubmit()"
+  class="container mx-auto w-4/5 mb-6"
+>
+  <h1 class="text-3xl my-8">Login Now:</h1>
+
+  <app-input
+    [control]="loginForm.get('email')"
+    [idInput]="'email'"
+    [typeInput]="'email'"
+    [placeholderInput]="'john_doe@gmail.com '"
+    [label]="'Email'"
+  ></app-input>
+
+  <app-input
+    [control]="loginForm.get('password')"
+    [idInput]="'password'"
+    [placeholderInput]="'JohnDoe1234 '"
+    [label]="'Password'"
+  ></app-input>
+
+  <a class="my-5 text-green-800" routerLink="/forgotPassword">
+    Forgot password
+  </a>
+
+  <div class="flex items-center justify-between">
+    @if (errorMessage) {
+    <div
+      class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50"
+      role="alert"
+    >
+      <span class="sr-only">Danger</span>
+      <div>
+        <p>{{ errorMessage }}</p>
+      </div>
+    </div>
+    }
+    <button
+      [disabled]="loginForm.invalid"
+      type="submit"
+      class="text-white w-full focus:ring-4 btn-main font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center"
+    >
+      Login @if (isLoading) {
+      <span> <i class="fas fa-spinner fa-spin"></i> </span>
+      }
+    </button>
+  </div>
+</form>

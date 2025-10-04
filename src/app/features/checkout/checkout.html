@@ -1,0 +1,40 @@
+<section class="p-4">
+  <form [formGroup]="checkoutForm" class="container mx-auto w-4/5 mb-6">
+    <h1 class="text-3xl my-8">Check Out</h1>
+
+    <app-input
+      [element]="'textArea'"
+      [control]="checkoutForm.get('shippingAddress')?.get('details')"
+      [idInput]="'details'"
+      [placeholderInput]="'My details..............'"
+      [label]="'Details'"
+    ></app-input>
+
+    <app-input
+      [control]="checkoutForm.get('shippingAddress')?.get('phone')"
+      [idInput]="'phone'"
+      [typeInput]="'tel'"
+      [placeholderInput]="'01123456789 '"
+      [label]="'Phone'"
+    ></app-input>
+
+    <app-input
+      [control]="checkoutForm.get('shippingAddress')?.get('city')"
+      [idInput]="'city'"
+      [typeInput]="'text'"
+      [placeholderInput]="'Alexandria '"
+      [label]="'City'"
+    ></app-input>
+
+    <div class="flex gap-4 justify-between items-center">
+      <div class="space-x-4">
+        <button  (click)="submit('visa')" type="submit" class="btn-main">
+          @if(isLoadingV){<span class="fa-spin fa-spinner fas"></span>} Visa
+        </button>
+        <button  (click)="submit('cash')" type="submit" class="btn-main">
+          @if(isLoadingC){<span class="fa-spin fa-spinner fas"></span>}Cash
+        </button>
+      </div>
+    </div>
+  </form>
+</section>

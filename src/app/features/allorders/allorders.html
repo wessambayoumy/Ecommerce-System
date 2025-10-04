@@ -1,0 +1,167 @@
+<div class="container mx-auto p-6">
+  <h2 class="text-2xl font-semibold mb-4">All Orders Summary</h2>
+
+  <!-- Orders grid -->
+  <div class="grid gap-6">
+    @for (order of orders; track $index) {
+    <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+      <div class="flex flex-col md:flex-row md:justify-between gap-4">
+        <!-- Left summary -->
+        <div class="flex-1">
+          <div class="flex items-center gap-3">
+            <div class="text-sm text-gray-500">Order</div>
+            <div class="font-mono font-semibold text-gray-800">
+              {{ order._id }}
+            </div>
+            <div class="text-xs text-gray-400">
+              — {{ order.createdAt | date : "medium" }}
+            </div>
+          </div>
+
+          <div class="mt-3 grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div>
+              <div class="text-xs text-gray-500">Customer</div>
+              <div class="font-medium">
+                {{ order.user?.name }}
+                <span class="text-gray-400">• {{ order.user?.email }}</span>
+              </div>
+            </div>
+
+            <div>
+              <div class="text-xs text-gray-500">Shipping</div>
+              <div class="text-sm">
+                {{ order.shippingAddress?.details }},
+                {{ order.shippingAddress?.city }}
+              </div>
+              <div class="text-xs text-gray-400">
+                Phone: {{ order.shippingAddress?.phone }}
+              </div>
+            </div>
+
+            <div>
+              <div class="text-xs text-gray-500">Payment</div>
+              <div class="text-sm">{{ order.paymentMethodType }}</div>
+              <div class="mt-1 flex items-center gap-2">
+                <span
+                  class="px-2 py-1 rounded-full text-xs font-medium"
+                  [class]="
+                    order.isPaid
+                      ? 'bg-green-100 text-green-800'
+                      : 'bg-red-100 text-red-800'
+                  "
+                >
+                  {{ order.isPaid ? "Paid" : "Unpaid" }}
+                </span>
+
+                <span
+                  class="px-2 py-1 rounded-full text-xs font-medium"
+                  [class]="
+                    order.isDelivered
+                      ? 'bg-blue-100 text-blue-800'
+                      : 'bg-yellow-100 text-yellow-800'
+                  "
+                >
+                  {{ order.isDelivered ? "Delivered" : "Not delivered" }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right totals -->
+        <div class="w-full md:w-64 flex-shrink-0">
+          <div
+            class="bg-gray-50 rounded-lg p-3 h-full flex flex-col justify-between"
+          >
+            <div>
+              <div class="text-xs text-gray-500">Items</div>
+              <div class="font-semibold text-lg">
+                {{ order.cartItems?.length }} products
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <div class="flex justify-between text-sm text-gray-500">
+                <div>Subtotal</div>
+                <div>
+                  {{
+                    order.totalOrderPrice - order.shippingPrice - order.taxPrice
+                      | currency : "EGP"
+                  }}
+                </div>
+              </div>
+              <div class="flex justify-between text-sm text-gray-500 mt-1">
+                <div>Shipping</div>
+                <div>{{ order.shippingPrice | currency : "EGP" }}</div>
+              </div>
+              <div class="flex justify-between text-sm text-gray-500 mt-1">
+                <div>Tax</div>
+                <div>{{ order.taxPrice | currency : "EGP" }}</div>
+              </div>
+
+              <div
+                class="border-t border-gray-100 mt-3 pt-3 flex items-center justify-between"
+              >
+                <div class="text-sm text-gray-500">Total</div>
+                <div class="text-xl font-semibold">
+                  {{ order.totalOrderPrice | currency : "EGP" }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 border-t pt-4">
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-sm">
+            <thead>
+              <tr class="text-left text-xs text-gray-400 uppercase">
+                <th class="py-2">Product</th>
+                <th class="py-2">Price</th>
+                <th class="py-2">Qty</th>
+                <th class="py-2">Category</th>
+                <th class="py-2">Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (item of order.cartItems; track $index) {
+              <tr class="border-t">
+                <td class="py-3 align-top">
+                  <div class="flex items-start gap-3">
+                    <img
+                      [src]="item.product?.imageCover"
+                      alt=""
+                      class="w-14 h-14 rounded-md object-cover border"
+                    />
+                    <div>
+                      <div class="font-medium">{{ item.product?.title }}</div>
+                      <div class="text-xs text-gray-400 mt-1">
+                        Brand: {{ item.product?.brand?.name }}
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3 align-top">
+                  {{ item.price | currency : "EGP" }}
+                </td>
+                <td class="py-3 align-top">{{ item.count }}</td>
+                <td class="py-3 align-top">
+                  {{ item.product?.category?.name }}
+                </td>
+                <td class="py-3 align-top">
+                  {{ item.price * item.count | currency : "EGP" }}
+                </td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    } @if(!orders || orders.length === 0){
+    <div class="text-center py-10 text-gray-400">No orders found.</div>
+    }
+  </div>
+</div>
