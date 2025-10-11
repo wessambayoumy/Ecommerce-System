@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, signal, WritableSignal } from '@angular/core';
 import { Iproducts } from '../../../../core/Interfaces/Iproducts';
 import { Card } from '../../../../shared/components/card/card';
 import { ProductService } from '../../../../core/services/product-service';
@@ -12,13 +12,12 @@ import { ProductService } from '../../../../core/services/product-service';
 export class PopularProducts {
   private readonly productService = inject(ProductService);
 
-  ProductList: Iproducts[] = [];
+  ProductList: WritableSignal<Iproducts[]> = signal([]);
 
   getAllProducts() {
     this.productService.getAllProducts().subscribe({
       next: (response) => {
-        console.log(response.data);
-        this.ProductList = response.data;
+        this.ProductList.set(response.data);
       },
      
     });

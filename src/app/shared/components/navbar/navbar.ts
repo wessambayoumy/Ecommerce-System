@@ -1,4 +1,13 @@
-import { Component, inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  input,
+  InputSignal,
+  OnInit,
+  PLATFORM_ID,
+  Signal,
+} from '@angular/core';
 import { FlowbiteService } from '../../../core/services/flowbite-service';
 import { initFlowbite } from 'flowbite';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
@@ -19,37 +28,32 @@ export class Navbar implements OnInit {
   private readonly router = inject(Router);
   private readonly platformId = inject(PLATFORM_ID);
 
-  @Input({ required: true }) isLoggedIn!: boolean;
+  isLoggedIn: InputSignal<boolean> = input(false);
 
-  count!: number;
-
-  signOut(): void {
-    this.cookiesService.delete('token');
-    this.router.navigateByUrl('/login');
-  }
-
-  cartCount() {
-    this.cartService.count.subscribe({
-      next: (value) => {
-        this.count = value;
-      },
-    });
-  }
-
-  cartData(): void {
-    this.cartService.getCart().subscribe({
-      next: (res) => {
-        this.cartService.count.next(res.numOfCartItems);
-      },
-    });
-  }
+  count: Signal<number> = computed(() => {
+    return this.cartService.count();
+  });
 
   ngOnInit(): void {
     this.flowbiteService.loadFlowbite((flowbite) => {
       initFlowbite();
     });
 
-    this.cartCount();
     isPlatformBrowser(this.platformId) ? this.cartData() : null;
+  }
+
+  signOut(): void {
+    this.cookiesService.delete('token');
+    this.router.navigateByUrl('/login');
+  }
+
+  cartData(): void {
+    if (this.cookiesService.get('token')) {
+      this.cartService.getCart().subscribe({
+        next: (res) => {
+          this.cartService.count.set(res.numOfCartItems);
+        },
+      });
+    }
   }
 }

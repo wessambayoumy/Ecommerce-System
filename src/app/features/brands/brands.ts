@@ -1,5 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Iproducts } from '../../core/Interfaces/Iproducts';
+import {
+  Component,
+  inject,
+  OnInit,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { IBrands } from '../../core/Interfaces/ibrands';
 import { BrandService } from '../../core/services/brand-service';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -13,10 +18,10 @@ import { NgxPaginationModule } from 'ngx-pagination';
 export class Brands implements OnInit {
   private readonly brandService = inject(BrandService);
 
-  brandList: IBrands[] = [];
-  p!: number;
-  limit!: number;
-  results!: number;
+  brandList: WritableSignal<IBrands[]> = signal([]);
+  p!: WritableSignal<number>;
+  limit!: WritableSignal<number>;
+  results!: WritableSignal<number>;
 
   ngOnInit(): void {
     this.getAllBrands();
@@ -25,10 +30,10 @@ export class Brands implements OnInit {
   getAllBrands(pageNo: number = 1): void {
     this.brandService.getAllBrands(pageNo).subscribe({
       next: (res) => {
-        this.brandList = res.data;
-        this.p = res.metadata.currentPage;
-        this.limit = res.metadata.limit;
-        this.results = res.results;
+        this.brandList.set(res.data);
+        this.p.set(res.metadata.currentPage);
+        this.limit.set(res.metadata.limit);
+        this.results.set(res.results);
       },
     });
   }

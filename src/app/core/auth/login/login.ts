@@ -1,4 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import {
   FormBuilder,
@@ -24,11 +30,15 @@ export class Login implements OnInit {
   private readonly fb = inject(FormBuilder);
   subscription: Subscription = new Subscription();
 
-  showPassword: boolean = false;
-  errorMessage: string = '';
-  isLoading: boolean = false;
+  showPassword: WritableSignal<boolean> = signal(false);
+  isLoading: WritableSignal<boolean> = signal(false);
+  errorMessage: WritableSignal<string> = signal('');
 
   loginForm!: FormGroup;
+
+  ngOnInit(): void {
+    this.initForm();
+  }
 
   initForm(): void {
     this.loginForm = this.fb.group({
@@ -38,12 +48,12 @@ export class Login implements OnInit {
   }
 
   showPasswordFn(): void {
-    this.showPassword = !this.showPassword;
+    this.showPassword.set(!this.showPassword);
   }
 
   loginSubmit(): void {
     if (this.loginForm.valid) {
-      this.isLoading = true;
+      this.isLoading.set(true);
       this.subscription.unsubscribe();
       this.subscription = this.authService
         .loginUser(this.loginForm.value)
@@ -51,18 +61,14 @@ export class Login implements OnInit {
           next: (res) => {
             this.cookieService.set('token', res.token);
             this.router.navigate(['/home']);
-            this.isLoading = false;
+            this.isLoading.set(false);
           },
           error: (err) => {
-            this.isLoading = false;
-            this.errorMessage = err.error.message;
+            this.isLoading.set(false);
+            this.errorMessage.set(err.error.message);
             this.loginForm.reset();
           },
         });
     }
-  }
-
-  ngOnInit(): void {
-    this.initForm();
   }
 }

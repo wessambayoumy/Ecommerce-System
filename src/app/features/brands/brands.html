@@ -1,7 +1,7 @@
 <section class="pt-40 container mx-auto w-10/12">
   <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-    @for(brand of brandList | paginate: { id: 'doo', itemsPerPage: limit,
-    currentPage: p, totalItems: results }; track $index){
+    @for(brand of brandList() | paginate: { id: 'doo', itemsPerPage: limit(),
+    currentPage: p(), totalItems: results() }; track $index){
     <div class="border border-emerald-500 p-4 rounded-2xl">
       <figure class="">
         <img class="w-full" [src]="brand.image" [alt]="brand.name" />

@@ -1,8 +1,13 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Iproducts } from '../../core/Interfaces/Iproducts';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
-import { ToastrService } from 'ngx-toastr';
 import { DetailService } from '../../core/services/detail-service';
 import { CartService } from '../../core/services/cart-service';
 
@@ -16,9 +21,8 @@ export class Details implements OnInit {
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly detailService = inject(DetailService);
   private readonly cartService = inject(CartService);
-  private readonly toastrService = inject(ToastrService);
-  productId: string | null = null;
-  productDetails: Iproducts = {} as Iproducts;
+  productId: WritableSignal<string | null> = signal(null);
+  productDetails: WritableSignal<Iproducts> = signal({} as Iproducts);
 
   customOptions: OwlOptions = {
     loop: true,
@@ -40,10 +44,9 @@ export class Details implements OnInit {
     this.getProductDetails();
   }
   getProductDetails(): void {
-    this.detailService.getProductDetails(this.productId).subscribe({
+    this.detailService.getProductDetails(this.productId()).subscribe({
       next: (res) => {
-        console.log(res.data);
-        this.productDetails = res.data;
+        this.productDetails.set(res.data);
       },
     });
   }
@@ -51,16 +54,11 @@ export class Details implements OnInit {
   getProductId(): void {
     this.activatedRoute.paramMap.subscribe({
       next: (param) => {
-        console.log(param.get('id'));
-        this.productId = param.get('id');
+        this.productId.set(param.get('id'));
       },
     });
   }
   addToCart(): void {
-    this.cartService.addToCart(this.productId!).subscribe({
-      next: (res) => {
-        this.toastrService.success(res.message, 'FreshCart');
-      },
-    });
+    this.cartService.addToCart(this.productId()!).subscribe();
   }
 }

@@ -11,9 +11,9 @@
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-    @for (product of productList | paginate: { id: 'foo', itemsPerPage:
-    pageSize, currentPage: p, totalItems: total } | searchFilter : search; track
-    product.id) {
+    @for (product of productList() | paginate: { id: 'foo', itemsPerPage:
+    pageSize(), currentPage: p(), totalItems: total() } | searchFilter :
+    search(); track product.id) {
 
     <app-card [product]="product"></app-card>
     }

@@ -1,4 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -22,52 +28,58 @@ export class ForgotPassword implements OnInit {
   private readonly cookieService = inject(CookieService);
   private readonly router = inject(Router);
 
-  verifyEmail!: FormGroup;
-  verifyCode!: FormGroup;
-  resetPassword!: FormGroup;
+  verifyEmail!: WritableSignal<FormGroup>;
+  verifyCode!: WritableSignal<FormGroup>;
+  resetPassword!: WritableSignal<FormGroup>;
 
-  step: number = 1;
+  step: WritableSignal<number> = signal(1);
 
   ngOnInit(): void {
     this.initForm();
   }
 
   initForm() {
-    this.verifyEmail = this.fb.group({
-      email: [null, [Validators.required, Validators.email]],
-    });
+    this.verifyEmail.set(
+      this.fb.group({
+        email: [null, [Validators.required, Validators.email]],
+      })
+    );
 
-    this.verifyCode = this.fb.group({
-      resetCode: [null, [Validators.required, Validators.minLength(3)]],
-    });
+    this.verifyCode.set(
+      this.fb.group({
+        resetCode: [null, [Validators.required, Validators.minLength(3)]],
+      })
+    );
 
-    this.resetPassword = this.fb.group({
-      email: [null, [Validators.required, Validators.email]],
-      newPassword: [null, [Validators.required, Validators.minLength(8)]],
-    });
+    this.resetPassword.set(
+      this.fb.group({
+        email: [null, [Validators.required, Validators.email]],
+        newPassword: [null, [Validators.required, Validators.minLength(8)]],
+      })
+    );
   }
 
   vEmail() {
-    if (this.verifyEmail.valid) {
-      this.authService.verifyEmail(this.verifyEmail.value).subscribe({
+    if (this.verifyEmail().valid) {
+      this.authService.verifyEmail(this.verifyEmail().value).subscribe({
         next: () => {
-          this.step = 2;
+          this.step.set(2);
         },
       });
     }
   }
   vCode() {
-    if (this.verifyCode.valid) {
-      this.authService.verifyCode(this.verifyCode.value).subscribe({
+    if (this.verifyCode().valid) {
+      this.authService.verifyCode(this.verifyCode().value).subscribe({
         next: () => {
-          this.step = 3;
+          this.step.set(3);
         },
       });
     }
   }
   resetPass() {
-    if (this.resetPassword.valid) {
-      this.authService.resetPassword(this.resetPassword.value).subscribe({
+    if (this.resetPassword().valid) {
+      this.authService.resetPassword(this.resetPassword().value).subscribe({
         next: (res) => {
           this.cookieService.set('token', res.token);
           this.router.navigateByUrl('/home');

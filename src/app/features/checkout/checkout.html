@@ -28,11 +28,11 @@
 
     <div class="flex gap-4 justify-between items-center">
       <div class="space-x-4">
-        <button  (click)="submit('visa')" type="submit" class="btn-main">
-          @if(isLoadingV){<span class="fa-spin fa-spinner fas"></span>} Visa
+        <button (click)="submit('visa')" type="submit" class="btn-main">
+          @if(isLoadingV()){<span class="fa-spin fa-spinner fas"></span>} Visa
         </button>
-        <button  (click)="submit('cash')" type="submit" class="btn-main">
-          @if(isLoadingC){<span class="fa-spin fa-spinner fas"></span>}Cash
+        <button (click)="submit('cash')" type="submit" class="btn-main">
+          @if(isLoadingC()){<span class="fa-spin fa-spinner fas"></span>}Cash
         </button>
       </div>
     </div>

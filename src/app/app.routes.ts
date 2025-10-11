@@ -2,19 +2,9 @@ import { Routes } from '@angular/router';
 import { AuthLayout } from './core/layouts/auth-layout/auth-layout';
 import { BlankLayout } from './core/layouts/blank-layout/blank-layout';
 import { Login } from './core/auth/login/login';
-import { Register } from './core/auth/register/register';
-import { Home } from './features/home/home';
-import { Brands } from './features/brands/brands';
-import { Cart } from './features/cart/cart';
-import { Categories } from './features/categories/categories';
-import { Checkout } from './features/checkout/checkout';
-import { Details } from './features/details/details';
-import { Products } from './features/products/products';
 import { Notfound } from './features/notfound/notfound';
 import { authGuard } from './core/guards/auth-guard';
 import { blankGuard } from './core/guards/blank-guard';
-import { Allorders } from './features/allorders/allorders';
-import { ForgotPassword } from './core/auth/forgot-password/forgot-password';
 
 export const routes: Routes = [
   {

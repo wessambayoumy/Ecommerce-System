@@ -1,7 +1,13 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { ICart } from '../../core/Interfaces/icart';
 import { CurrencyPipe } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { CartService } from '../../core/services/cart-service';
 
 @Component({
@@ -13,7 +19,7 @@ import { CartService } from '../../core/services/cart-service';
 export class Cart implements OnInit {
   private readonly cartService = inject(CartService);
 
-  cartProducts: ICart = {} as ICart;
+  cartProducts: WritableSignal<ICart> = signal({} as ICart);
 
   ngOnInit() {
     this.loadCart();
@@ -21,21 +27,21 @@ export class Cart implements OnInit {
 
   loadCart() {
     this.cartService.getCart().subscribe((res) => {
-      this.cartProducts = res.data;
+      this.cartProducts.set(res.data);
     });
   }
 
   removeItem(productId: string) {
     this.cartService.removeFromCart(productId).subscribe((res) => {
-      this.cartService.count.next(res.numOfCartItems);
-      this.cartProducts = res.data;
+      this.cartService.count.set(res.numOfCartItems);
+      this.cartProducts.set(res.data);
     });
   }
 
   updateCount(productId: string, count: number) {
     if (count > 0) {
       this.cartService.updateCartItem(productId, count).subscribe((res) => {
-        this.cartProducts = res.data;
+        this.cartProducts.set(res.data);
       });
     }
   }

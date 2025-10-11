@@ -29,14 +29,14 @@
     [label]="'password'"
   ></app-input>
 
-   <app-input
+  <app-input
     [control]="registerForm.get('rePassword')"
     [idInput]="'rePassword'"
     [placeholderInput]="'JohnDoe1234 '"
     [label]="'Confirm Password'"
   ></app-input>
 
- <app-input
+  <app-input
     [control]="registerForm.get('phone')"
     [idInput]="'phone'"
     [typeInput]="'tel'"
@@ -45,23 +45,23 @@
   ></app-input>
 
   <div class="flex items-center justify-between">
-    @if (errorMessage) {
+    @if (errorMessage()) {
     <div
       class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50"
       role="alert"
     >
       <span class="sr-only">Danger</span>
       <div>
-        <p>{{ errorMessage }}</p>
+        <p>{{ errorMessage() }}</p>
       </div>
     </div>
     }
     <button
-      [disabled]="registerForm.invalid "
+      [disabled]="registerForm.invalid"
       type="submit"
       class="text-white w-full focus:ring-4 btn-main font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center"
     >
-      Register @if (isLoading) {
+      Register @if (isLoading()) {
       <span> <i class="fas fa-spinner fa-spin"></i> </span>
       }
     </button>

@@ -14,7 +14,6 @@ export const successInterceptor: HttpInterceptorFn = (req, next) => {
       next: (res: HttpEvent<any>) => {
         if (res instanceof HttpResponse) {
           if (['POST', 'PUT', 'DELETE'].includes(req.method)) {
-            const body: any = res.body as any;
             const message =
               res.body?.message || 'Operation completed successfully!';
             toastrService.success(message);

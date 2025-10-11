@@ -3,11 +3,11 @@
     <div class="flex gap-3 items-center mb-5">
       <h1 class="text-4xl">Cart</h1>
       <span class="text-amber-600 text-lg">
-        {{ cartProducts.products.length }} items
+        {{ cartProducts().products.length }} items
       </span>
     </div>
     <div class="space-y-4">
-      @for (prod of cartProducts.products; track prod.product._id) {
+      @for (prod of cartProducts().products; track prod.product._id) {
       <div class="bg-white p-4 rounded-2xl flex gap-4">
         <img
           [src]="prod.product.imageCover"
@@ -44,6 +44,11 @@
           </div>
         </div>
       </div>
+      }@empty {
+      <h2 class="text-center text-xl font-bold">Your Cart is Empty</h2>
+      <p class="text-center font-semibold">
+        please add products to proceed to checkout
+      </p>
       }
     </div>
   </div>
@@ -52,11 +57,12 @@
     <h2 class="text-4xl">Order Summary</h2>
     <div class="flex justify-between my-4">
       <span>price</span
-      ><span>{{ cartProducts.totalCartPrice | currency : "EGP" }}</span>
+      ><span>{{ cartProducts().totalCartPrice | currency : "EGP" }}</span>
     </div>
     <button
       class="block btn-main w-full mt-3"
-      [routerLink]="['/checkout', cartProducts._id]"
+      [routerLink]="['/checkout', cartProducts()._id]"
+      [disabled]="cartProducts().products.length == 0"
     >
       Proceed to Checkout
     </button>

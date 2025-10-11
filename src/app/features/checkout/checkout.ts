@@ -1,4 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -22,9 +28,9 @@ export class Checkout implements OnInit {
   private readonly router = inject(Router);
   private readonly cartService = inject(CartService);
 
-  cartId: string | null = null;
-  isLoadingV: boolean = false;
-  isLoadingC: boolean = false;
+  cartId: WritableSignal<string | null> = signal(null);
+  isLoadingV: WritableSignal<boolean> = signal(false);
+  isLoadingC: WritableSignal<boolean> = signal(false);
   visaSubscription: Subscription = new Subscription();
   cashSubscription: Subscription = new Subscription();
 
@@ -46,10 +52,10 @@ export class Checkout implements OnInit {
   submit(payment: string) {
     if (this.checkoutForm.valid) {
       if (payment == 'visa') {
-        this.isLoadingV = true;
+        this.isLoadingV.set(true);
         this.visaSubscription.unsubscribe();
         this.cartService
-          .checkOutVisa(this.cartId, this.checkoutForm.value)
+          .checkOutVisa(this.cartId(), this.checkoutForm.value)
           .subscribe({
             next: (res) => {
               if (res.status === 'success') {
@@ -58,18 +64,18 @@ export class Checkout implements OnInit {
             },
           });
       } else if (payment == 'cash') {
-        this.isLoadingC = true;
+        this.isLoadingC.set(true);
         this.cashSubscription.unsubscribe();
         this.cartService
-          .checkOutCash(this.cartId, this.checkoutForm.value)
+          .checkOutCash(this.cartId(), this.checkoutForm.value)
           .subscribe({
             next: () => {
-              this.isLoadingC = false;
+              this.isLoadingC.set(false);
               this.router.navigateByUrl('/allorders');
-              this.cartService.count.next(0);
+              this.cartService.count.set(0);
             },
             error: () => {
-              this.isLoadingC = false;
+              this.isLoadingC.set(false);
             },
           });
       }
@@ -79,8 +85,8 @@ export class Checkout implements OnInit {
   getCartId() {
     this.activatedRoute.paramMap.subscribe({
       next: (params) => {
-        this.cartId = params.get('id');
-        console.log(this.cartId);
+        this.cartId.set(params.get('id'));
+        console.log(this.cartId());
       },
     });
   }

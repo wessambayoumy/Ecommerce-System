@@ -2,44 +2,44 @@
   <label
     [class]="{
       'text-red-600':
-        control?.errors && control?.touched,
+        control()?.errors && control()?.touched,
       }"
-    [for]="idInput"
+    [for]="idInput()"
     class="block mb-2 text-sm font-medium text-gray-900"
-    >{{ label }}</label
+    >{{ label() }}</label
   >
-  @if (element == "input") {
+  @if (element() == "input") {
   <input
     [class]="{
-      'border-red-600': control?.errors && control?.touched,
-      'border-green-700': control?.valid && control?.touched
+      'border-red-600': control()?.errors && control()?.touched,
+      'border-green-700': control()?.valid && control()?.touched
     }"
-    [formControl]="control"
-    [type]="typeInput || (showPassword ? 'text' : 'password')"
-    [id]="idInput"
+    [formControl]="control()"
+    [type]="typeInput() || (showPassword() ? 'text' : 'password')"
+    [id]="idInput()"
     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg mb-0.5 block w-full p-2.5"
-    [placeholder]="placeholderInput"
+    [placeholder]="placeholderInput()"
     required
   />
-  }@else if (element == "textArea") {
+  }@else if (element() == "textArea") {
   <textarea
     [class]="{
-      'border-red-600': control?.errors && control?.touched,
-      'border-green-700': control?.valid && control?.touched
+      'border-red-600': control()?.errors && control()?.touched,
+      'border-green-700': control()?.valid && control()?.touched
     }"
-    [formControl]="control"
-    [id]="idInput"
+    [formControl]="control()"
+    [id]="idInput()"
     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg mb-0.5 block w-full p-2.5"
-    [placeholder]="placeholderInput"
+    [placeholder]="placeholderInput()"
     required
   ></textarea
-  >} @if(idInput == 'password' || idInput == 'rePassword'){
-  <span (click)="showPassword = !showPassword">
-    @if (showPassword) {
+  >} @if(idInput() == 'password' || idInput() == 'rePassword'){
+  <span (click)="showPassword.set(!showPassword())">
+    @if (showPassword()) {
     <i class="fas fa-eye-slash absolute -translate-y-7 right-3"></i>
     } @else {<i class="fas fa-eye absolute -translate-y-7 right-3"></i>}
   </span>
-  } @if (control?.errors && control?.touched) {
+  } @if (control()?.errors && control()?.touched) {
   <div
     class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50"
     role="alert"
@@ -47,23 +47,23 @@
     <span class="sr-only">Danger</span>
     <div>
       <ul class="mt-1.5 list-disc list-inside">
-        @if(control?.hasError('required')) {
+        @if(control()?.hasError('required')) {
         <li>This field is required</li>
-        }@if(control?.hasError('minlength')) {
+        }@if(control()?.hasError('minlength')) {
         <li>
           Minimum length is
-          {{control?.errors?.['minlength']?.requiredLength}} characters
+          {{control()?.errors?.['minlength']?.requiredLength}} characters
         </li>
-        }@if(control?.hasError('maxlength')) {
+        }@if(control()?.hasError('maxlength')) {
         <li>
           Maximum length is
-          {{control?.errors?.['maxlength']?.requiredLength}} characters
+          {{control()?.errors?.['maxlength']?.requiredLength}} characters
         </li>
-        }@if (control?.hasError('pattern')) {
+        }@if (control()?.hasError('pattern')) {
         <li>Invalid format</li>
-        }@if (control?.hasError('email')) {
+        }@if (control()?.hasError('email')) {
         <li>Invalid email format</li>
-        }@if (control?.hasError('mismatch')) {
+        }@if (control()?.hasError('mismatch')) {
         <li>Passwords do not match</li>
         }
       </ul>

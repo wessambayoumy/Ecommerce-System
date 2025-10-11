@@ -1,4 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { Card } from '../../shared/components/card/card';
 import { ProductService } from '../../core/services/product-service';
 import { Iproducts } from '../../core/Interfaces/Iproducts';
@@ -14,22 +20,20 @@ import { FormsModule } from '@angular/forms';
 })
 export class Products implements OnInit {
   private readonly productService = inject(ProductService);
-  productList: Iproducts[] = [];
-  pageSize!: number;
-  p!: number;
-  total!: number;
-  search: string = '';
+  productList: WritableSignal<Iproducts[]> = signal([]);
+  pageSize!: WritableSignal<number>;
+  p!: WritableSignal<number>;
+  total!: WritableSignal<number>;
+  search: WritableSignal<string> = signal('');
 
   getAllProducts(pageNo: number = 1): void {
     this.productService.getAllProducts(pageNo).subscribe({
       next: (res) => {
-        console.log(res.data);
-        this.productList = res.data;
-        this.pageSize = res.metadata.limit;
-        this.p = res.metadata.currentPage;
-        this.total = res.results;
+        this.productList.set(res.data);
+        this.pageSize.set(res.metadata.limit);
+        this.p.set(res.metadata.currentPage);
+        this.total.set(res.results);
       },
-     
     });
   }
   ngOnInit(): void {

@@ -1,4 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  Signal,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -10,6 +17,7 @@ import { Router } from '@angular/router';
 import { InputComponent } from '../../../shared/components/input/input';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth-service';
+
 @Component({
   selector: 'app-register',
   imports: [ReactiveFormsModule, InputComponent],
@@ -22,12 +30,12 @@ export class Register implements OnInit {
   private readonly fb = inject(FormBuilder);
 
   subscription: Subscription = new Subscription();
-  showPassword: boolean = false;
-  showrePassword: boolean = false;
-  errorMessage: string = '';
-  isLoading: boolean = false;
-
+  showPassword: WritableSignal<boolean> = signal(false);
+  showrePassword: WritableSignal<boolean> = signal(false);
+  errorMessage: WritableSignal<string> = signal('');
+  isLoading: WritableSignal<boolean> = signal(false);
   registerForm!: FormGroup;
+
   initForm(): void {
     this.registerForm = this.fb.group(
       {
@@ -49,18 +57,18 @@ export class Register implements OnInit {
   }
   regSubmit(): void {
     if (this.registerForm.valid) {
-      this.isLoading = true;
+      this.isLoading.set(true);
       this.subscription.unsubscribe();
       this.subscription = this.authService
         .registerUser(this.registerForm.value)
         .subscribe({
-          next: (res) => {
+          next: () => {
             this.router.navigate(['/login']);
-            this.isLoading = false;
+            this.isLoading.set(false);
           },
           error: (err) => {
-            this.isLoading = false;
-            this.errorMessage = err.error.message;
+            this.isLoading.set(false);
+            this.errorMessage.set(err.error.message);
             this.registerForm.reset();
           },
         });
@@ -76,10 +84,10 @@ export class Register implements OnInit {
   }
 
   showPasswordFn(): void {
-    this.showPassword = !this.showPassword;
+    this.showPassword.set(!this.showPassword);
   }
   showrePasswordFn(): void {
-    this.showrePassword = !this.showrePassword;
+    this.showrePassword.set(!this.showrePassword);
   }
 
   ngOnInit(): void {

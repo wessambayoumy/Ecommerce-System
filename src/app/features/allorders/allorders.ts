@@ -1,7 +1,6 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, WritableSignal } from '@angular/core';
 import { IOrders } from '../../core/Interfaces/iorders';
 import { CartService } from '../../core/services/cart-service';
-import { AuthService } from '../../core/services/auth-service';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 
 @Component({
@@ -12,19 +11,17 @@ import { CurrencyPipe, DatePipe } from '@angular/common';
 })
 export class Allorders implements OnInit {
   private readonly cartService = inject(CartService);
-  private readonly authService = inject(AuthService);
 
-  orders!: IOrders[];
+  orders!: WritableSignal<IOrders[]>;
 
   ngOnInit(): void {
-    console.log(this.authService.decodeToken().id);
     this.getAllOrders();
   }
 
   getAllOrders() {
     this.cartService.getUserOrders().subscribe({
       next: (res) => {
-        this.orders = res;
+        this.orders.set(res);
       },
     });
   }

@@ -2,7 +2,7 @@
 <div class="container mx-auto ">
   <h2 class="text-4xl mb-5 ">Popular Categories</h2>
   <owl-carousel-o [options]="customOptions">
-    @for (category of categoryList; track category._id) {
+    @for (category of categoryList(); track category._id) {
     <ng-template carouselSlide  [id]="category._id">
       <figure class="p-1">
         <img [src]="category.image" class="w-full h-60 shadow" [alt]="category.name" />

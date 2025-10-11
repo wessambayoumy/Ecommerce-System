@@ -1,4 +1,10 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  input,
+  InputSignal,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -8,13 +14,13 @@ import { ReactiveFormsModule } from '@angular/forms';
   styleUrl: './input.css',
 })
 export class InputComponent {
-  @Input() control!: any;
-  @Input() nameInput: string = '';
-  @Input() typeInput: string = '';
-  @Input() idInput: string = '';
-  @Input() placeholderInput: string = '';
-  @Input() label: string = '';
-  @Input() element: string = 'input';
+  control: InputSignal<any> = input('');
+  nameInput: InputSignal<string> = input('');
+  typeInput: InputSignal<string> = input('');
+  idInput: InputSignal<string> = input('');
+  placeholderInput: InputSignal<string> = input('');
+  label: InputSignal<string> = input('');
+  element: InputSignal<string> = input('input');
 
-  showPassword: boolean = false;
+  showPassword: WritableSignal<boolean> = signal(false);
 }

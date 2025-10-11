@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { CategoryService } from '../../../../core/services/category-service';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { Icategories } from '../../../../core/Interfaces/icategories';
@@ -11,7 +11,7 @@ import { Icategories } from '../../../../core/Interfaces/icategories';
 })
 export class PopularCategories implements OnInit {
   private readonly categoryService = inject(CategoryService);
-  categoryList: Icategories[] = [];
+  categoryList: WritableSignal<Icategories[]> = signal([]);
 
   customOptions: OwlOptions = {
     loop: true,
@@ -46,8 +46,7 @@ export class PopularCategories implements OnInit {
   getAllCategories() {
     this.categoryService.getAllCategories().subscribe({
       next: (res) => {
-        console.log(res.data);
-        this.categoryList = res.data;
+        this.categoryList.set(res.data);
       },
     });
   }
