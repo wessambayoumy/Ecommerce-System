@@ -21,9 +21,9 @@ import { FormsModule } from '@angular/forms';
 export class Products implements OnInit {
   private readonly productService = inject(ProductService);
   productList: WritableSignal<Iproducts[]> = signal([]);
-  pageSize!: WritableSignal<number>;
-  p!: WritableSignal<number>;
-  total!: WritableSignal<number>;
+  pageSize: WritableSignal<number> = signal(10);
+  p: WritableSignal<number> = signal(1);
+  total: WritableSignal<number> = signal(0);
   search: WritableSignal<string> = signal('');
 
   getAllProducts(pageNo: number = 1): void {

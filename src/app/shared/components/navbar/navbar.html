@@ -32,7 +32,7 @@
     <div class="hidden grow w-full md:flex md:w-auto" id="navbar-default">
       @if (isLoggedIn()){
       <ul
-        class="font-medium flex flex-col ms-5 p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-200 md:flex-row md:space-x-5 rtl:space-x-reverse md:mt-0 md:border-0"
+        class="font-medium flex flex-col ms-5 p-4 md:p-0 gap-2 mt-4 border border-gray-100 rounded-lg bg-gray-200 md:flex-row md:space-x-5 rtl:space-x-reverse md:mt-0 md:border-0"
       >
         <li>
           <a
@@ -40,7 +40,7 @@
             routerLinkActive="text-green-600 "
             class="block py-2 px-3 rounded-sm md:p-0 text-gray-700 hover:text-green-600 transition-colors duration-200 cursor-pointer"
             aria-current="page"
-            >Home</a
+            >{{ "navbar.HOME" | translate }}</a
           >
         </li>
         <li class="relative">
@@ -49,7 +49,7 @@
             routerLinkActive="text-green-600 "
             class="block py-2 px-3 rounded-sm md:p-0 text-gray-700 hover:text-green-600 transition-colors duration-200 cursor-pointer"
             aria-current="page"
-            >Cart</a
+            >{{ "navbar.CART" | translate }}</a
           >
           <span
             class="absolute top-0 -end-3 rounded-4xl px-0.5 bg-red-500 text-white text-xs z-10"
@@ -62,7 +62,7 @@
             routerLinkActive="text-green-600 "
             class="block py-2 px-3 rounded-sm md:p-0 text-gray-700 hover:text-green-600 transition-colors duration-200 cursor-pointer"
             aria-current="page"
-            >Products</a
+            >{{ "navbar.PRODUCTS" | translate }}</a
           >
         </li>
         <li>
@@ -71,7 +71,7 @@
             routerLinkActive="text-green-600 "
             class="block py-2 px-3 rounded-sm md:p-0 text-gray-700 hover:text-green-600 transition-colors duration-200 cursor-pointer"
             aria-current="page"
-            >Categories</a
+            >{{ "navbar.CATEGORIES" | translate }}</a
           >
         </li>
         <li>
@@ -80,7 +80,7 @@
             routerLinkActive="text-green-600 "
             class="block py-2 px-3 rounded-sm md:p-0 text-gray-700 hover:text-green-600 transition-colors duration-200 cursor-pointer"
             aria-current="page"
-            >Brands</a
+            >{{ "navbar.BRANDS" | translate }}</a
           >
         </li>
       </ul>
@@ -130,13 +130,62 @@
             ><i class="fa-brands fa-youtube"></i
           ></a>
         </li>
+        <li>
+          <button
+            id="dropdownNavbarLink"
+            data-dropdown-toggle="dropdownNavbar"
+            class="flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0 md:w-auto :text-white md::hover:text-green-500 :focus:text-white :border-gray-700 :hover:bg-gray-700 md::hover:bg-transparent"
+          >
+            {{ "navbar.LANG" | translate }}
+            <svg
+              class="w-2.5 h-2.5 ms-2 me-3"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 10 6"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m1 1 4 4 4-4"
+              />
+            </svg>
+          </button>
+          <!-- Dropdown menu -->
+          <div
+            id="dropdownNavbar"
+            class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 :bg-gray-700 :divide-gray-600"
+          >
+            <ul
+              class="py-2 text-sm text-gray-700 :text-gray-400"
+              aria-labelledby="dropdownLargeButton"
+            >
+              <li>
+                <a
+                  (click)="changeLang('en')"
+                  class="block px-4 py-2 hover:bg-gray-100 :hover:bg-gray-600 :hover:text-white"
+                  >English</a
+                >
+              </li>
+              <li>
+                <a
+                  (click)="changeLang('ar')"
+                  class="block px-4 py-2 hover:bg-gray-100 :hover:bg-gray-600 :hover:text-white"
+                  >العربية</a
+                >
+              </li>
+            </ul>
+          </div>
+        </li>
         @if (isLoggedIn()) {
         <li>
           <a
             (click)="signOut()"
             class="block py-2 px-3 rounded-sm md:p-0 text-gray-700 hover:text-green-600 transition-colors duration-200 cursor-pointer"
             aria-current="page"
-            >SignOut</a
+            >{{ "navbar.SIGN_OUT" | translate }}</a
           >
         </li>
         }@else {
@@ -147,7 +196,7 @@
             routerLinkActive="text-green-600 "
             class="block py-2 px-3 rounded-sm md:p-0 text-gray-700 hover:text-green-600 transition-colors duration-200 cursor-pointer"
             aria-current="page"
-            >Login</a
+            >{{ "navbar.LOG_IN" | translate }}</a
           >
         </li>
         <li>
@@ -156,7 +205,7 @@
             routerLinkActive="text-green-600 "
             class="block py-2 px-3 rounded-sm md:p-0 text-gray-700 hover:text-green-600 transition-colors duration-200 cursor-pointer"
             aria-current="page"
-            >Register</a
+            >{{ "navbar.REGISTER" | translate }}</a
           >
         </li>
         }

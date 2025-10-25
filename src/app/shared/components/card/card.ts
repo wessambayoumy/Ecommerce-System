@@ -1,12 +1,13 @@
-import { Component, inject, input, Input, InputSignal } from '@angular/core';
+import { Component, inject, input, InputSignal } from '@angular/core';
 import { Iproducts } from '../../../core/Interfaces/Iproducts';
 import { RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 import { CartService } from '../../../core/services/cart-service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-card',
-  imports: [RouterLink, CurrencyPipe],
+  imports: [RouterLink, CurrencyPipe,TranslatePipe],
   templateUrl: './card.html',
   styleUrl: './card.css',
 })
@@ -18,7 +19,6 @@ export class Card {
     this.cartService.addToCart(productId).subscribe({
       next: (res) => {
         this.cartService.count.set(res.numOfCartItems);
-        console.log(this.cartService.count);
       },
     });
   }

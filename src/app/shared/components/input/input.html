@@ -36,8 +36,8 @@
   >} @if(idInput() == 'password' || idInput() == 'rePassword'){
   <span (click)="showPassword.set(!showPassword())">
     @if (showPassword()) {
-    <i class="fas fa-eye-slash absolute -translate-y-7 right-3"></i>
-    } @else {<i class="fas fa-eye absolute -translate-y-7 right-3"></i>}
+    <i class="fas fa-eye-slash absolute -translate-y-7 end-3"></i>
+    } @else {<i class="fas fa-eye absolute -translate-y-7 end-3"></i>}
   </span>
   } @if (control()?.errors && control()?.touched) {
   <div

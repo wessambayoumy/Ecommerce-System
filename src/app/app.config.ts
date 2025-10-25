@@ -12,18 +12,26 @@ import {
   withEventReplay,
 } from '@angular/platform-browser';
 import {
+  HttpClient,
+  HttpClientModule,
   provideHttpClient,
   withFetch,
   withInterceptors,
 } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
-import { provideToastr, ToastrModule } from 'ngx-toastr';
+import { provideToastr } from 'ngx-toastr';
 import { headersInterceptor } from './core/interceptors/headers-interceptor';
 import { errorInterceptor } from './core/interceptors/error-interceptor';
 import { successInterceptor } from './core/interceptors/success-interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { loadingInterceptor } from './core/interceptors/loading-interceptor';
-
+import {
+  provideTranslateService,
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { HttpLoaderFactory } from './core/utils/httploader';
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
@@ -40,6 +48,15 @@ export const appConfig: ApplicationConfig = {
       ])
     ),
     provideAnimations(),
+
+    provideTranslateService({
+      loader: provideTranslateHttpLoader({
+        prefix: '/i18n/',
+        suffix: '.json',
+      }),
+      fallbackLang: 'en',
+      lang: 'ar',
+    }),
 
     importProvidersFrom([CookieService, NgxSpinnerModule]),
     provideToastr(),

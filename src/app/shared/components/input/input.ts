@@ -21,6 +21,5 @@ export class InputComponent {
   placeholderInput: InputSignal<string> = input('');
   label: InputSignal<string> = input('');
   element: InputSignal<string> = input('input');
-
   showPassword: WritableSignal<boolean> = signal(false);
 }

@@ -10,10 +10,11 @@ import { Iproducts } from '../../core/Interfaces/Iproducts';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { DetailService } from '../../core/services/detail-service';
 import { CartService } from '../../core/services/cart-service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-details',
-  imports: [CarouselModule],
+  imports: [CarouselModule,TranslatePipe],
   templateUrl: './details.html',
   styleUrl: './details.css',
 })

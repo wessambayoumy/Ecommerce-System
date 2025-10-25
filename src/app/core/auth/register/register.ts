@@ -2,7 +2,6 @@ import {
   Component,
   inject,
   OnInit,
-  Signal,
   signal,
   WritableSignal,
 } from '@angular/core';
@@ -17,10 +16,11 @@ import { Router } from '@angular/router';
 import { InputComponent } from '../../../shared/components/input/input';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth-service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule, InputComponent],
+  imports: [ReactiveFormsModule, InputComponent,TranslatePipe],
   templateUrl: './register.html',
   styleUrl: './register.css',
 })

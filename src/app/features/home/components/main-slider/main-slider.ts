@@ -8,6 +8,7 @@ import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 })
 export class MainSlider {
   customOptions: OwlOptions = {
+    rtl: true,
     loop: true,
     autoplay: true,
     autoplayTimeout: 3000,

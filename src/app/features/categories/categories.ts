@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { CategoryService } from '../../core/services/category-service';
 import { Icategories } from '../../core/Interfaces/icategories';
-import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-categories',
@@ -31,9 +30,6 @@ export class Categories implements OnInit {
     this.categoryService.getAllCategories().subscribe({
       next: (res) => {
         this.categoryList.set(res.data);
-        this.p.set(res.metadata.currentPage);
-        this.limit.set(res.metadata.limit);
-        this.results.set(res.results);
       },
     });
   }

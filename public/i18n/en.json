@@ -1,0 +1,53 @@
+{
+ "navbar":{
+  "HOME": "Home",
+  "CART": "Cart",
+  "PRODUCTS": "Products",
+  "CATEGORIES": "Categories",
+  "BRANDS": "Brands",
+  "SIGN_OUT": "Sign Out",
+  "LOG_IN": "Log In",
+  "REGISTER": "Register",
+  "LANG": "Lang"
+},
+ "homePage":{
+   "POPULAR_CATEGORIES": "Popular Categories"
+  },
+  "CART": {
+    "TITLE": "Cart",
+    "ADD_TO_CART": "Add to Cart",
+    "CLEAR_CART": "Clear Cart",
+    "REMOVE": "Remove",
+    "PRODUCT_DESCRIPTION":"Product description",
+    "ITEMS": "items",
+    "EMPTY": "Your Cart is Empty",
+    "ADD_PRODUCTS": "please add products to proceed to checkout",
+    "ORDER_SUMMARY": "Order Summary",
+    "PRICE": "price",
+    "PROCEED_CHECKOUT": "Proceed to Checkout"
+  },
+  "footer": {
+    "GET_APP": "Get The FreshCart App",
+    "DOWNLOAD_TEXT": "We Will Send You a Link. Open it on Your Phone to download the app",
+    "SHARE_LINK": "Share App Link",
+    "GET_DELIVERIES": "Get Deliveries with FreshCart",
+    "PAYMENT_PARTNERS": "Payment partners"
+  },
+  "auth":{
+    "NAME":"Name",
+    "EMAIL":"Email",
+    "PASSWORD":"Password",
+    "CONFIRM_PASSWORD":"Confirm Password",
+    "NEW_PASSWORD":"New Password",
+    "PHONE":"Phone",
+    "CODE":"Code",
+    "FORGOT_PASSWORD":"Forgot Password",
+    "NOW":"Now",
+    "VERIFY_EMAIL":"Verify Email",
+    "VERIFY_CODE":"Verify Code ",
+    "CHANGE_PASSWORD":" Change Password",
+    "SUBMIT":"Submit"
+  }
+}
+
+

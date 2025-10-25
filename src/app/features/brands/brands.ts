@@ -19,9 +19,9 @@ export class Brands implements OnInit {
   private readonly brandService = inject(BrandService);
 
   brandList: WritableSignal<IBrands[]> = signal([]);
-  p!: WritableSignal<number>;
-  limit!: WritableSignal<number>;
-  results!: WritableSignal<number>;
+  p: WritableSignal<number> = signal(1);
+  limit: WritableSignal<number> = signal(10);
+  results: WritableSignal<number> = signal(0);
 
   ngOnInit(): void {
     this.getAllBrands();

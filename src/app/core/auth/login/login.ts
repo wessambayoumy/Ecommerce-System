@@ -16,10 +16,11 @@ import { InputComponent } from '../../../shared/components/input/input';
 import { Subscription } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../../services/auth-service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, InputComponent, RouterLink],
+  imports: [ReactiveFormsModule, InputComponent, RouterLink,TranslatePipe],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })

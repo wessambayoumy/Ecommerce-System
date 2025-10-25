@@ -14,10 +14,12 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { CartService } from '../../../core/services/cart-service';
 import { isPlatformBrowser } from '@angular/common';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslationService } from '../../../core/services/translation-service';
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, TranslatePipe],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
 })
@@ -25,6 +27,8 @@ export class Navbar implements OnInit {
   private readonly flowbiteService = inject(FlowbiteService);
   private readonly cookiesService = inject(CookieService);
   private readonly cartService = inject(CartService);
+  private readonly translationService = inject(TranslationService);
+  private readonly translateService = inject(TranslateService);
   private readonly router = inject(Router);
   private readonly platformId = inject(PLATFORM_ID);
 
@@ -45,6 +49,13 @@ export class Navbar implements OnInit {
   signOut(): void {
     this.cookiesService.delete('token');
     this.router.navigateByUrl('/login');
+  }
+  changeLang(lang: string): void {
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('lang', lang);
+      this.translateService.use(lang);
+      this.translationService.changeDirection();
+    }
   }
 
   cartData(): void {

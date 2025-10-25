@@ -1,0 +1,54 @@
+{
+ "navbar": {
+  "HOME": "الرئيسية",
+  "CART": "السلة",
+  "PRODUCTS": "المنتجات",
+  "CATEGORIES": "الفئات",
+  "BRANDS": "الماركات",
+  "SIGN_OUT": "تسجيل الخروج",
+  "LOG_IN": "تسجيل الدخول",
+  "REGISTER": "إنشاء حساب",
+  "LANG": "اللغة"
+  },
+ "homePage": {
+        "POPULAR_CATEGORIES": "الفئات الشائعة"
+ },
+ "CART": {
+    "TITLE": "السلة",
+    "PRODUCT_DESCRIPTION":"وصف المنتج",
+    "ADD_TO_CART": "أضف إلى السلة",
+    "REMOVE": "إزالة",
+    "CLEAR_CART": "مسح السلة",
+    "ITEMS": "منتاجات",
+    "EMPTY": "سلة التسوق فارغة",
+    "ADD_PRODUCTS": "يرجى إضافة منتجات للمتابعة إلى الدفع",
+    "ORDER_SUMMARY": "ملخص الطلب",
+    "PRICE": "السعر",
+    "PROCEED_CHECKOUT": "المتابعة للدفع"
+  },
+  "footer": {
+    "GET_APP": "احصل على تطبيق FreshCart",
+    "DOWNLOAD_TEXT": "سنرسل لك رابطًا. افتحه على هاتفك لتنزيل التطبيق",
+    "EMAIL": "البريد الإلكتروني",
+    "SHARE_LINK": "مشاركة رابط التطبيق",
+    "GET_DELIVERIES": "احصل على التوصيل مع FreshCart",
+    "PAYMENT_PARTNERS": "شركاء الدفع"
+  },
+  "auth": {
+   "NAME": "الاسم",
+   "EMAIL": "البريد الإلكتروني",
+   "PASSWORD": "كلمة المرور",
+   "CONFIRM_PASSWORD": "تأكيد كلمة المرور",
+   "NEW_PASSWORD": "كلمة المرور الجديدة",
+   "PHONE": "رقم الهاتف",
+   "CODE": "الرمز",
+   "FORGOT_PASSWORD": "نسيت كلمة المرور",
+   "NOW": "الآن",
+   "VERIFY_EMAIL": "تحقق من البريد الإلكتروني",
+   "VERIFY_CODE": "تحقق من الرمز ",
+   "CHANGE_PASSWORD": " تغيير كلمة المرور",
+   "SUBMIT":"إرسال"
+   
+}
+
+}

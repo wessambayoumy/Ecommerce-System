@@ -1,11 +1,18 @@
-import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { CategoryService } from '../../../../core/services/category-service';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { Icategories } from '../../../../core/Interfaces/icategories';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-popular-categories',
-  imports: [CarouselModule],
+  imports: [CarouselModule,TranslatePipe],
   templateUrl: './popular-categories.html',
   styleUrl: './popular-categories.css',
 })
@@ -14,6 +21,7 @@ export class PopularCategories implements OnInit {
   categoryList: WritableSignal<Icategories[]> = signal([]);
 
   customOptions: OwlOptions = {
+    rtl: true,
     loop: true,
     autoplay: true,
     autoplayTimeout: 3000,

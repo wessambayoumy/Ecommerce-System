@@ -3,15 +3,16 @@
   (ngSubmit)="regSubmit()"
   class="container mx-auto w-4/5 mb-6"
 >
-  <h1 class="text-3xl my-8">Register Now:</h1>
-  <!-- @let nameControl = registerForm.get('name'); -->
+  <h1 class="text-3xl my-8">
+    {{ "navbar.REGISTER" | translate }}
+  </h1>
 
   <app-input
     [control]="registerForm.get('name')"
     [idInput]="'name'"
     [typeInput]="'text'"
     [placeholderInput]="'John Doe '"
-    [label]="'Name'"
+    [label]="'auth.NAME' | translate"
   ></app-input>
 
   <app-input
@@ -19,29 +20,29 @@
     [idInput]="'email'"
     [typeInput]="'email'"
     [placeholderInput]="'john_doe@gmail.com '"
-    [label]="'Email'"
+    [label]="'auth.EMAIL' | translate"
   ></app-input>
 
   <app-input
     [control]="registerForm.get('password')"
     [idInput]="'password'"
     [placeholderInput]="'JohnDoe1234 '"
-    [label]="'password'"
+    [label]="'auth.PASSWORD' | translate"
   ></app-input>
 
   <app-input
     [control]="registerForm.get('rePassword')"
     [idInput]="'rePassword'"
     [placeholderInput]="'JohnDoe1234 '"
-    [label]="'Confirm Password'"
+    [label]="'auth.CONFIRM_PASSWORD' | translate"
   ></app-input>
 
   <app-input
     [control]="registerForm.get('phone')"
     [idInput]="'phone'"
-    [typeInput]="'tel'"
+    [typeInput]="'text'"
     [placeholderInput]="'01543583846 '"
-    [label]="'Phone'"
+    [label]="'auth.PHONE' | translate"
   ></app-input>
 
   <div class="flex items-center justify-between">
@@ -61,7 +62,7 @@
       type="submit"
       class="text-white w-full focus:ring-4 btn-main font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center"
     >
-      Register @if (isLoading()) {
+      {{ "navbar.REGISTER" | translate }} @if (isLoading()) {
       <span> <i class="fas fa-spinner fa-spin"></i> </span>
       }
     </button>

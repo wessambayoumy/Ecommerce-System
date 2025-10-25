@@ -1,10 +1,8 @@
 <section class="md:flex p-4 gap-4">
   <div class="md:w-[70%] bg-gray-200 p-5 rounded-2xl">
     <div class="flex gap-3 items-center mb-5">
-      <h1 class="text-4xl">Cart</h1>
-      <span class="text-amber-600 text-lg">
-        {{ cartProducts().products.length }} items
-      </span>
+      <h1 class="text-4xl">{{ "CART.TITLE" | translate }}</h1>
+      <span class="text-amber-600 text-lg"> {{ count() }} {{"CART.ITEMS"|translate}} </span>
     </div>
     <div class="space-y-4">
       @for (prod of cartProducts().products; track prod.product._id) {
@@ -18,7 +16,9 @@
           <h2 class="text-2xl font-semibold">
             {{ prod.product.title }}
           </h2>
-          <p class="text-gray-600">Product Description</p>
+          <p class="text-gray-600">
+            {{ "CART.PRODUCT_DESCRIPTION" | translate }}
+          </p>
           <div class="flex items-center gap-4 mt-2">
             <span class="text-xl font-bold">
               {{ prod.price | currency : "EGP" }}</span
@@ -39,32 +39,37 @@
               </button>
             </div>
             <button class="text-red-500" (click)="removeItem(prod.product._id)">
-              Remove
+              {{ "CART.REMOVE" | translate }}
             </button>
           </div>
         </div>
       </div>
       }@empty {
-      <h2 class="text-center text-xl font-bold">Your Cart is Empty</h2>
+      <h2 class="text-center text-xl font-bold">
+        {{ "CART.EMPTY" | translate }}
+      </h2>
       <p class="text-center font-semibold">
-        please add products to proceed to checkout
+        {{ "CART.ADD_PRODUCTS" | translate }}
       </p>
       }
     </div>
+    <button class="btn-main" (click)="clearCart()">
+      {{ "CART.CLEAR_CART" | translate }}
+    </button>
   </div>
 
   <div class="md:w-[30%] bg-gray-200 p-5 rounded-2xl h-fit">
-    <h2 class="text-4xl">Order Summary</h2>
+    <h2 class="text-4xl">{{ "CART.ORDER_SUMMARY" | translate }}</h2>
     <div class="flex justify-between my-4">
-      <span>price</span
+      <span>{{ "CART.PRICE" | translate }}</span
       ><span>{{ cartProducts().totalCartPrice | currency : "EGP" }}</span>
     </div>
     <button
       class="block btn-main w-full mt-3"
       [routerLink]="['/checkout', cartProducts()._id]"
-      [disabled]="cartProducts().products.length == 0"
+      [disabled]="cartProducts().products?.length == 0"
     >
-      Proceed to Checkout
+      {{ "CART.PROCEED_CHECKOUT" | translate }}
     </button>
   </div>
 </section>

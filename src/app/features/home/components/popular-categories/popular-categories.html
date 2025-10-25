@@ -1,15 +1,17 @@
-
-<div class="container mx-auto ">
-  <h2 class="text-4xl mb-5 ">Popular Categories</h2>
+<div class="container mx-auto">
+  <h2 class="text-4xl mb-5">{{"homePage.POPULAR_CATEGORIES" | translate}}</h2>
   <owl-carousel-o [options]="customOptions">
     @for (category of categoryList(); track category._id) {
-    <ng-template carouselSlide  [id]="category._id">
+    <ng-template carouselSlide [id]="category._id">
       <figure class="p-1">
-        <img [src]="category.image" class="w-full h-60 shadow" [alt]="category.name" />
+        <img
+          [src]="category.image"
+          class="w-full h-60 shadow"
+          [alt]="category.name"
+        />
       </figure>
       <h3 class="p-1">{{ category.name }}</h3>
     </ng-template>
     }
   </owl-carousel-o>
-
 </div>
