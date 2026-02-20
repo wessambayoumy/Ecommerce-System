@@ -21,7 +21,7 @@ export class Cart implements OnInit {
   private readonly cartService = inject(CartService);
 
   cartProducts: WritableSignal<ICart> = signal({} as ICart);
-  count:WritableSignal<number> = signal(this.cartService.count());
+  count: WritableSignal<number> = signal(this.cartService.count());
 
   ngOnInit() {
     this.loadCart();
@@ -50,6 +50,7 @@ export class Cart implements OnInit {
   clearCart() {
     this.cartService.clearCart().subscribe((res) => {
       this.cartService.count.set(0);
+      this.cartProducts.set({} as ICart);
     });
   }
 }

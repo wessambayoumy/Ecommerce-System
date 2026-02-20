@@ -2,58 +2,64 @@
   <div class="md:w-[70%] bg-gray-200 p-5 rounded-2xl">
     <div class="flex gap-3 items-center mb-5">
       <h1 class="text-4xl">{{ "CART.TITLE" | translate }}</h1>
-      <span class="text-amber-600 text-lg"> {{ count() }} {{"CART.ITEMS"|translate}} </span>
+      <span class="text-amber-600 text-lg">
+        {{ count() }} {{ "CART.ITEMS" | translate }}
+      </span>
     </div>
     <div class="space-y-4">
       @for (prod of cartProducts().products; track prod.product._id) {
-      <div class="bg-white p-4 rounded-2xl flex gap-4">
-        <img
-          [src]="prod.product.imageCover"
-          alt="Product Image"
-          class="w-32 h-32 object-cover rounded-lg"
-        />
-        <div class="flex-1">
-          <h2 class="text-2xl font-semibold">
-            {{ prod.product.title }}
-          </h2>
-          <p class="text-gray-600">
-            {{ "CART.PRODUCT_DESCRIPTION" | translate }}
-          </p>
-          <div class="flex items-center gap-4 mt-2">
-            <span class="text-xl font-bold">
-              {{ prod.price | currency : "EGP" }}</span
-            >
-            <div class="flex items-center border rounded-lg">
-              <button
-                class="px-3 py-1 text-lg"
-                (click)="updateCount(prod.product._id, prod.count - 1)"
+        <div class="bg-white p-4 rounded-2xl flex gap-4">
+          <img
+            [src]="prod.product.imageCover"
+            alt="Product Image"
+            class="w-32 h-32 object-cover rounded-lg"
+          />
+          <div class="flex-1">
+            <h2 class="text-2xl font-semibold">
+              {{ prod.product.title }}
+            </h2>
+            <p class="text-gray-600">
+              {{ "CART.PRODUCT_DESCRIPTION" | translate }}
+            </p>
+            <div class="flex items-center gap-4 mt-2">
+              <span class="text-xl font-bold">
+                {{ prod.price | currency: "EGP" }}</span
               >
-                -
-              </button>
-              <span class="px-3">{{ prod.count }}</span>
+              <div class="flex items-center border rounded-lg">
+                <button
+                  class="px-3 py-1 text-lg"
+                  (click)="updateCount(prod.product._id, prod.count - 1)"
+                >
+                  -
+                </button>
+                <span class="px-3">{{ prod.count }}</span>
+                <button
+                  class="px-3 py-1 text-lg"
+                  (click)="updateCount(prod.product._id, prod.count + 1)"
+                >
+                  +
+                </button>
+              </div>
               <button
-                class="px-3 py-1 text-lg"
-                (click)="updateCount(prod.product._id, prod.count + 1)"
+                class="text-red-500"
+                (click)="removeItem(prod.product._id)"
               >
-                +
+                {{ "CART.REMOVE" | translate }}
               </button>
             </div>
-            <button class="text-red-500" (click)="removeItem(prod.product._id)">
-              {{ "CART.REMOVE" | translate }}
-            </button>
           </div>
         </div>
-      </div>
-      }@empty {
-      <h2 class="text-center text-xl font-bold">
-        {{ "CART.EMPTY" | translate }}
-      </h2>
-      <p class="text-center font-semibold">
-        {{ "CART.ADD_PRODUCTS" | translate }}
-      </p>
+      }
+      @empty {
+        <h2 class="text-center text-xl font-bold">
+          {{ "CART.EMPTY" | translate }}
+        </h2>
+        <p class="text-center font-semibold">
+          {{ "CART.ADD_PRODUCTS" | translate }}
+        </p>
       }
     </div>
-    <button class="btn-main" (click)="clearCart()">
+    <button class="btn-main mt-1" (click)="clearCart()">
       {{ "CART.CLEAR_CART" | translate }}
     </button>
   </div>
@@ -62,7 +68,7 @@
     <h2 class="text-4xl">{{ "CART.ORDER_SUMMARY" | translate }}</h2>
     <div class="flex justify-between my-4">
       <span>{{ "CART.PRICE" | translate }}</span
-      ><span>{{ cartProducts().totalCartPrice | currency : "EGP" }}</span>
+      ><span>{{ cartProducts().totalCartPrice | currency: "EGP" }}</span>
     </div>
     <button
       class="block btn-main w-full mt-3"
