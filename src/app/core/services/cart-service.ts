@@ -30,6 +30,7 @@ export class CartService {
     });
   }
   clearCart(): Observable<any> {
+    this.count.set(0);
     return this.httpClient.delete(environment.baseUrl + 'cart');
   }
 

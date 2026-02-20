@@ -14,7 +14,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-details',
-  imports: [CarouselModule,TranslatePipe],
+  imports: [CarouselModule, TranslatePipe],
   templateUrl: './details.html',
   styleUrl: './details.css',
 })
@@ -60,6 +60,10 @@ export class Details implements OnInit {
     });
   }
   addToCart(): void {
-    this.cartService.addToCart(this.productId()!).subscribe();
+    this.cartService.addToCart(this.productId()!).subscribe({
+      next: (res) => {
+        this.cartService.count.set(res.numOfCartItems);
+      },
+    });
   }
 }
